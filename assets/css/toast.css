@@ -1,0 +1,81 @@
+/* toast.css - Sistem notifikasi toast universal VEDIKA */
+.vd-toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 360px;
+}
+
+.vd-toast {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+    border-radius: 10px;
+    background: #ffffff;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12), 0 2px 6px rgba(0,0,0,0.08);
+    border-left: 5px solid #6c757d;
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 14px;
+    color: #2c2c2c;
+    opacity: 0;
+    transform: translateX(40px);
+    animation: vd-toast-in 0.35s ease forwards;
+    position: relative;
+    overflow: hidden;
+}
+
+.vd-toast.vd-hide {
+    animation: vd-toast-out 0.3s ease forwards;
+}
+
+@keyframes vd-toast-in {
+    from { opacity: 0; transform: translateX(40px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes vd-toast-out {
+    from { opacity: 1; transform: translateX(0); }
+    to   { opacity: 0; transform: translateX(40px); }
+}
+
+.vd-toast-icon { font-size: 20px; line-height: 1; margin-top: 1px; }
+.vd-toast-body { flex: 1; }
+.vd-toast-title { font-weight: 600; margin-bottom: 2px; }
+.vd-toast-msg { font-size: 13px; color: #555; }
+.vd-toast-close {
+    cursor: pointer;
+    color: #999;
+    font-size: 16px;
+    line-height: 1;
+    background: none;
+    border: none;
+}
+.vd-toast-progress {
+    position: absolute;
+    bottom: 0; left: 0;
+    height: 3px;
+    background: rgba(0,0,0,0.15);
+    animation-name: vd-toast-progress;
+    animation-timing-function: linear;
+}
+@keyframes vd-toast-progress {
+    from { width: 100%; }
+    to   { width: 0%; }
+}
+
+.vd-toast.success { border-left-color: #16a34a; }
+.vd-toast.success .vd-toast-icon { color: #16a34a; }
+.vd-toast.error   { border-left-color: #dc2626; }
+.vd-toast.error   .vd-toast-icon { color: #dc2626; }
+.vd-toast.warning { border-left-color: #f59e0b; }
+.vd-toast.warning .vd-toast-icon { color: #f59e0b; }
+.vd-toast.info    { border-left-color: #2563eb; }
+.vd-toast.info    .vd-toast-icon { color: #2563eb; }
+.vd-toast.login,
+.vd-toast.logout  { border-left-color: #0891b2; }
+.vd-toast.login .vd-toast-icon,
+.vd-toast.logout .vd-toast-icon { color: #0891b2; }
