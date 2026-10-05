@@ -60,6 +60,7 @@ function initIfExists(selector, title) {
         responsive: true,
         dom: 'lBfrtip',
         buttons: [
+            { extend: 'copyHtml5', text: '<i class="fas fa-copy"></i> Copy', title: null, header: true },
             { extend: 'excelHtml5', text: 'Excel', title: title }
         ],
         lengthMenu: [10, 25, 50, 100],
@@ -107,6 +108,30 @@ $(function () {
         if (window.matchMedia('(max-width: 767.98px)').matches) {
             closeMobile();
         }
+    });
+
+    const $menuSearch = $('#sidebarMenuSearch');
+    const $menuLinks = $sidebar.find('a.sidebar-link').not('[href="logout.php"]');
+    $menuSearch.on('input', function () {
+        const keyword = String(this.value || '').toLocaleLowerCase('id').trim();
+        let visible = 0;
+        $menuLinks.each(function () {
+            const match = keyword === '' || $(this).text().toLocaleLowerCase('id').indexOf(keyword) !== -1;
+            $(this).toggle(match);
+            if (match) visible++;
+        });
+
+        $sidebar.find('.sidebar-section-title').each(function () {
+            const $title = $(this);
+            let hasVisibleLink = false;
+            let $next = $title.next();
+            while ($next.length && !$next.hasClass('sidebar-section-title') && !$next.is('hr')) {
+                if ($next.is('a.sidebar-link') && $next.css('display') !== 'none') hasVisibleLink = true;
+                $next = $next.next();
+            }
+            $title.toggle(keyword === '' || hasVisibleLink);
+        });
+        $('#sidebarSearchEmpty').toggle(keyword !== '' && visible === 0);
     });
 
     initIfExists('#dtMliteRajal', 'MliteRajal');

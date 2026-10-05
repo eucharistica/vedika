@@ -75,6 +75,22 @@
             padding: 12px 0;
         }
 
+        .sidebar-search { padding: 10px 10px 2px; }
+        .sidebar-search .input-group-text,
+        .sidebar-search .form-control {
+            background: rgba(255,255,255,.08);
+            border-color: rgba(255,255,255,.14);
+            color: #fff;
+        }
+        .sidebar-search .form-control::placeholder { color: rgba(255,255,255,.55); }
+        .sidebar-search .form-control:focus {
+            background: rgba(255,255,255,.12);
+            border-color: rgba(13,110,253,.75);
+            box-shadow: none;
+            color: #fff;
+        }
+        #sidebar.collapsed .sidebar-search { display: none; }
+
         .topbar {
             background: #fff;
             border-bottom: 1px solid #e9ecef;
