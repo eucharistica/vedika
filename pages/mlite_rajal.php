@@ -18,6 +18,9 @@ $filter_base = "
   FROM reg_periksa
   INNER JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis
   INNER JOIN maping_poli_bpjs_real ON maping_poli_bpjs_real.kd_poli_rs = reg_periksa.kd_poli
+  INNER JOIN bridging_sep ON bridging_sep.no_rawat = reg_periksa.no_rawat
+    AND bridging_sep.jnspelayanan = '2'
+    AND bridging_sep.no_sep <> ''
   WHERE reg_periksa.tgl_registrasi BETWEEN '$tgl_cari' AND '$tgl_cari2'
     AND reg_periksa.kd_pj = 'BPJ'
     AND reg_periksa.status_lanjut = 'Ralan'
@@ -31,6 +34,9 @@ $dokter_options = query("SELECT DISTINCT reg_periksa.kd_dokter, dokter.nm_dokter
   FROM reg_periksa
   INNER JOIN dokter ON dokter.kd_dokter = reg_periksa.kd_dokter
   INNER JOIN maping_poli_bpjs_real ON maping_poli_bpjs_real.kd_poli_rs = reg_periksa.kd_poli
+  INNER JOIN bridging_sep ON bridging_sep.no_rawat = reg_periksa.no_rawat
+    AND bridging_sep.jnspelayanan = '2'
+    AND bridging_sep.no_sep <> ''
   WHERE reg_periksa.tgl_registrasi BETWEEN '$tgl_cari' AND '$tgl_cari2'
     AND reg_periksa.kd_pj = 'BPJ' AND reg_periksa.status_lanjut = 'Ralan'
     AND reg_periksa.stts NOT IN ('Batal')
@@ -62,7 +68,9 @@ $sql_emr = query("
     INNER JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis
     INNER JOIN maping_poli_bpjs_real ON maping_poli_bpjs_real.kd_poli_rs = reg_periksa.kd_poli
     INNER JOIN dokter ON dokter.kd_dokter = reg_periksa.kd_dokter
-    LEFT JOIN bridging_sep ON bridging_sep.no_rawat = reg_periksa.no_rawat
+    INNER JOIN bridging_sep ON bridging_sep.no_rawat = reg_periksa.no_rawat
+      AND bridging_sep.jnspelayanan = '2'
+      AND bridging_sep.no_sep <> ''
     LEFT JOIN mlite_vedika ON mlite_vedika.no_rawat = reg_periksa.no_rawat
   WHERE
     reg_periksa.tgl_registrasi BETWEEN '$tgl_cari' AND '$tgl_cari2'
